@@ -56,7 +56,9 @@ HTML5-reader
 
 7.HTML5触屏事件
   
- touchstart touchmove  1.start move end 2.start click move end
+ touchstart touchmove  
+ 1.start move end 
+ 2.start click move end
  body.addEventListener('touchstart',function(){console(1)},false)
 
 8.移动端性能陷阱
@@ -65,14 +67,14 @@ HTML5-reader
 
   2.尽量缓存所有可以缓存的数据
 
-    1.HTML5 前存取
+    HTML5 前存取
     *Cache-Control max-age
 
     *ETag md5标识
 
     *用HTTP协议 Response-Header做缓存
 
-    2.HTML5
+    HTML5
 
     localStorage sessionStorage indexDB(存储更大数据，可以做索引)
   
