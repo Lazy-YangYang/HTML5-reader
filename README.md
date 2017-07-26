@@ -5,7 +5,7 @@ HTML5-reader
 
 ## HTML5 Reader 使用到的技术
 
-1. 使用base64格式图片制作Icon
+## 使用base64格式图片制作Icon
 
   url(data:image/png;base64,{img_data})
   
@@ -13,7 +13,7 @@ HTML5-reader
 
   但是不像维护一般图片那么容易。
 
-2. 使用CSS3制作Icon
+## 使用CSS3制作Icon
 
   体积更小，但不容易维护，存在兼容问题。
 
@@ -23,7 +23,7 @@ HTML5-reader
 
   常用在规则图形上 适合简单图形。
 
-3. HTML5-API
+## HTML5-API
   
   DOM节点操作 QuerySelector 
 
@@ -38,17 +38,17 @@ HTML5-reader
   localStorage.getItem('a');
   ```
 
-4. HTML5-ajax跨域 
+## HTML5-ajax跨域 
 
   ``` JavaScript
   header('Access-Control-Allow-Origin:www.baidu.com,www.qq.com');
   ```
 
-5. HTML5+contentediton
+## HTML5+contentediton
 
   属性值设为ture 可编辑区域
 
-6. viewport
+## viewport
 
   统一交互
 
@@ -56,7 +56,7 @@ HTML5-reader
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
   ```
 
-7. HTML5触屏事件
+## HTML5触屏事件
   
   touchstart touchmove  
 
@@ -66,7 +66,7 @@ HTML5-reader
 
   body.addEventListener('touchstart',function(){console(1)},false)
 
-8. 移动端性能陷阱
+## 移动端性能陷阱
 
   1. 减少页面repaint reflow
 
