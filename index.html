@@ -79,7 +79,7 @@
 
         </div>
     </div>
-    <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script src="https://cdn.bootcss.com/Base64/1.0.1/base64.min.js"></script>
     <script>
         //指定 jQuery 为zepto的￥
@@ -96,6 +96,17 @@
                 }
                 var StorageSetter = function(key, val) {
                     return localStorage.setItem(prefix + key, val);
+                }
+                var getBSONP = function(url, callback) {
+                    return $.jsonp({
+                        url: url,
+                        cache: true,
+                        callback: 'duokan_ficiton_chapter',
+                        success: function(result) {
+                            var data = $.base64.decode(result);
+                            var json =
+                        }
+                    })
                 }
                 return {
                     StorageGetter: StorageGetter,
@@ -126,6 +137,11 @@
                 //todo 实现和阅读器相关的数据交互方法
                 var getFicitonInfo = function() {
                     $.get('./data/chapter.json', function(result) {
+                        console.log(result)
+                    }, 'json')
+                }
+                vat getChapterContent = function(id) {
+                    $.get('data/data' + id + '.json', function(result) {
                         console.log(result)
                     }, 'json')
                 }
