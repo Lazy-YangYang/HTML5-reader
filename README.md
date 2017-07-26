@@ -3,7 +3,9 @@ HTML5-reader
 
 参考 https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5
 
-1.使用base64格式图片制作Icon
+## HTML5 Reader 使用到的技术
+
+1. 使用base64格式图片制作Icon
 
   url(data:image/png;base64,{img_data})
   
@@ -11,7 +13,7 @@ HTML5-reader
 
   但是不像维护一般图片那么容易。
 
-2.使用CSS3制作Icon
+2. 使用CSS3制作Icon
 
   体积更小，但不容易维护，存在兼容问题。
 
@@ -21,7 +23,7 @@ HTML5-reader
 
   常用在规则图形上 适合简单图形。
 
-3.HTML5-API
+3. HTML5-API
   
   DOM节点操作 QuerySelector 
 
@@ -36,17 +38,17 @@ HTML5-reader
   localStorage.getItem('a');
   ```
 
-4.HTML5-ajax跨域 
+4. HTML5-ajax跨域 
 
   ``` JavaScript
   header('Access-Control-Allow-Origin:www.baidu.com,www.qq.com');
   ```
 
-5.HTML5+contentediton
+5. HTML5+contentediton
 
   属性值设为ture 可编辑区域
 
-6.viewport
+6. viewport
 
   统一交互
 
@@ -54,37 +56,40 @@ HTML5-reader
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
   ```
 
-7.HTML5触屏事件
+7. HTML5触屏事件
   
- touchstart touchmove  
- 1.start move end 
- 2.start click move end
- body.addEventListener('touchstart',function(){console(1)},false)
+  touchstart touchmove  
 
-8.移动端性能陷阱
+  1. start move end 
 
-  1.减少页面repaint reflow
+  2. start click move end
 
-  2.尽量缓存所有可以缓存的数据
+  body.addEventListener('touchstart',function(){console(1)},false)
 
-    HTML5 前存取
-    *Cache-Control max-age
+8. 移动端性能陷阱
 
-    *ETag md5标识
+  1. 减少页面repaint reflow
 
-    *用HTTP协议 Response-Header做缓存
+  2. 尽量缓存所有可以缓存的数据
 
-    HTML5
+      HTML5 前存取
+      * Cache-Control max-age
 
-    localStorage sessionStorage indexDB(存储更大数据，可以做索引)
+      * ETag md5标识
   
-  3.使用CSS3 transform 代替dom 操作
+      * 用HTTP协议 Response-Header做缓存
+
+      HTML5
+
+      localStorage sessionStorage indexDB(存储更大数据，可以做索引)
+  
+   3. 使用CSS3 transform 代替dom 操作
     
-    不要给非static定位元素增加css动画
+      不要给非static定位元素增加css动画
 
-    适当使用硬件加速 使用手机GPU渲染
+      适当使用硬件加速 使用手机GPU渲染
 
-    canvas、transform:tanslate3d(0,0,0)可以使用硬件加速
+      canvas、transform:tanslate3d(0,0,0)可以使用硬件加速
 
     
 
