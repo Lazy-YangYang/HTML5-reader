@@ -98,15 +98,15 @@
                     return localStorage.setItem(prefix + key, val);
                 }
                 var getBSONP = function(url, callback) {
-                    return $.jsonp({
-                        url: url,
-                        cache: true,
-                        callback: 'duokan_ficiton_chapter',
-                        success: function(result) {
-                            var data = $.base64.decode(result);
-                            var json =
-                        }
-                    })
+                    // return $.jsonp({
+                    //     url: url,
+                    //     cache: true,
+                    //     callback: 'duokan_ficiton_chapter',
+                    //     success: function(result) {
+                    //         var data = $.base64.decode(result);
+                    //         var json =
+                    //     }
+                    // })
                 }
                 return {
                     StorageGetter: StorageGetter,
