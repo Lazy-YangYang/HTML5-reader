@@ -1,9 +1,12 @@
 # HTML5-reader
-HTML5-reader
 
-参考 https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5
+https://penwa.github.io/HTML5-reader/
+
+请在移动端打开
+
 
 ## HTML5 Reader 使用到的技术
+
 
 ## 使用base64格式图片制作Icon
 
