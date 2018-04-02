@@ -25,13 +25,7 @@
         <div id="fition_chapter_title">
         </div>
         <div id="fition_container" class="m-read-content">
-            <h4>后来，我瞒着所有人爱了你很久很久</h4>
-            <p>你知道吗？我昨晚又梦到你了，梦中的你一如既往地帅气，你背对着我，坐在那家我们常去的咖啡馆常坐的位置，我进门径直朝着那个位置走去，却看到了你，我就愣在那儿停顿了好久，然后你转过头来看到了我，你朝我笑，我鼓起勇气试着向你走近，却始终走不到那个位置，眼睁睁地看着你近在咫尺，却偏偏难以靠近，最后直到你消失不见。</p>
-            <p>你知道吗？我昨晚又梦到你了，梦中的你一如既往地帅气，你背对着我，坐在那家我们常去的咖啡馆常坐的位置，我进门径直朝着那个位置走去，却看到了你，我就愣在那儿停顿了好久，然后你转过头来看到了我，你朝我笑，我鼓起勇气试着向你走近，却始终走不到那个位置，眼睁睁地看着你近在咫尺，却偏偏难以靠近，最后直到你消失不见。</p>
-            <p>会偷偷地跑到你的空间，因为当时在一起的时候微信还没有如此盛行，那时候会要求你弄成情侣头像，关联qq号，设置成情侣空间，有空了就一直在你空间留言，后来我们的qq不再关联，你也换了头像，换了空间装扮，清空了所有留言。我偷偷地溜进去转了一圈，然后默默地删除访问记录。想知道你的消息，又怕你知道我还在惦记。</p>
-            <p>会偷偷地跑到你的空间，因为当时在一起的时候微信还没有如此盛行，那时候会要求你弄成情侣头像，关联qq号，设置成情侣空间，有空了就一直在你空间留言，后来我们的qq不再关联，你也换了头像，换了空间装扮，清空了所有留言。我偷偷地溜进去转了一圈，然后默默地删除访问记录。想知道你的消息，又怕你知道我还在惦记。</p>
-            <p>会偷偷地跑到你的空间，因为当时在一起的时候微信还没有如此盛行，那时候会要求你弄成情侣头像，关联qq号，设置成情侣空间，有空了就一直在你空间留言，后来我们的qq不再关联，你也换了头像，换了空间装扮，清空了所有留言。我偷偷地溜进去转了一圈，然后默默地删除访问记录。想知道你的消息，又怕你知道我还在惦记。</p>
-            <p>会偷偷地跑到你的空间，因为当时在一起的时候微信还没有如此盛行，那时候会要求你弄成情侣头像，关联qq号，设置成情侣空间，有空了就一直在你空间留言，后来我们的qq不再关联，你也换了头像，换了空间装扮，清空了所有留言。我偷偷地溜进去转了一圈，然后默默地删除访问记录。想知道你的消息，又怕你知道我还在惦记。</p>
+
         </div>
         <div class="u-btn">
             <ul class="u-tab">
@@ -80,35 +74,38 @@
         </div>
     </div>
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
-    <script src="https://cdn.bootcss.com/Base64/1.0.1/base64.min.js"></script>
+
     <script>
-        //指定 jQuery 为zepto的￥
+        //指定 jQuery 为zepto的$
         window.jQuery = $;
     </script>
     <script src="https://cdn.bootcss.com/jQuery-JSONP/2.4.0/jquery.jsonp.min.js"></script>
+    <script src="https://cdn.bootcss.com/Base64/1.0.1/base64.min.js"></script>
     <script>
-        (function() {
+        (function () {
             //定义键名加上prefix的localStorage的存取
-            var Util = (function() {
+            var Util = (function () {
                 var prefix = 'html5_reader'
-                var StorageGetter = function(key) {
+                var StorageGetter = function (key) {
                     return localStorage.getItem(prefix + key);
                 }
-                var StorageSetter = function(key, val) {
+                var StorageSetter = function (key, val) {
                     return localStorage.setItem(prefix + key, val);
                 }
-                var getBSONP = function(url, callback) {
-                    // return $.jsonp({
-                    //     url: url,
-                    //     cache: true,
-                    //     callback: 'duokan_ficiton_chapter',
-                    //     success: function(result) {
-                    //         var data = $.base64.decode(result);
-                    //         var json =
-                    //     }
-                    // })
+                var getBSONP = function (url, callback) {
+                    return $.jsonp({
+                        url: url,
+                        cache: true,
+                        callback: 'duokan_fiction_chapter',
+                        success: function (result) {
+                            var data = atob(result);
+                            var json = decodeURIComponent(escape(data))
+                            callback(json);
+                        }
+                    })
                 }
                 return {
+                    getBSONP: getBSONP,
                     StorageGetter: StorageGetter,
                     StorageSetter: StorageSetter,
                 }
@@ -122,38 +119,74 @@
             }
             var Win = $(window);
             var Doc = $(document);
-            var RootContainer = $('#fition_container')
+            var RootContainer = $('#fition_container');
             var initFontSize = parseInt(Util.StorageGetter('font_size')) || 14;
-            console.log(parseInt(Util.StorageGetter('font_size')));
+            var readerUI;
+            var readerModel;
 
             function main() {
                 //入口函数
                 RootContainer.css('font-size', initFontSize);
                 EventHadnlder();
-                ReaderModel();
+                readerUI = readerBaseFrame(RootContainer);
+                readerModel = new ReaderModel();
+                readerModel.init(function (data) {
+                    readerUI(data)
+                })
+
             }
 
             function ReaderModel() {
                 //todo 实现和阅读器相关的数据交互方法
-                // var getFicitonInfo = function() {
-                //     $.get('./data/chapter.json', function(result) {
-                //         console.log(result)
-                //     }, 'json')
-                // }
-                // vat getChapterContent = function(id) {
-                //     $.get('data/data' + id + '.json', function(result) {
-                //         console.log(result)
-                //     }, 'json')
-                // }
+                var ID;
+                var init = function (callback) {
+                    getFicitonInfo(function () {
+                        getChapterContent(ID, function (data) {
+                            callback(data)
+                        })
+                    })
+                }
+                var getFicitonInfo = function (callback) {
+                    $.get('data/chapter.json', function (data) {
+                        ID = data.chapters[1].chapter_id;
+                        callback && callback()
+                    }, 'json')
+                }
+                var getChapterContent = function (id, callback) {
+                    $.get('data/data' + id + '.json', function (data) {
+                        if (data.result == 0) {
+                            var url = data.jsonp;
+                            Util.getBSONP(url, function (data) {
+                                callback && callback(data)
+                            });
+                        }
+                    }, 'json')
+                }
+                return {
+                    init: init
+                }
             }
 
-            function ReaderBaseFrame() {
-                //todo 渲染基本的UI结构
+            function readerBaseFrame(container) {
+                //渲染基本的UI结构
+                //解析章节数据
+                function parseChapterData(jsonData) {
+                    var jsonObj = JSON.parse(jsonData);
+                    var html = "<h4>" + jsonObj.t + "</h4>";
+                    for (var i = 0; i < jsonObj.p.length; i++) {
+                        html += "<p>" + jsonObj.p[i] + "</p>";
+                    }
+                    return html;
+                }
+                return function (data) {
+                    container.html(parseChapterData(data));
+                }
             }
+
 
             function EventHadnlder() {
                 //todo
-                $('#action_mid').click(function() {
+                $('#action_mid').click(function () {
                     if (Dom.top_nav.css('display') == 'none') {
                         Dom.bottom_nav.show();
                         Dom.top_nav.show();
@@ -162,7 +195,7 @@
                         Dom.top_nav.hide();
                     }
                 })
-                $('#font-btn').click(function() {
+                $('#font-btn').click(function () {
                     if (Dom.font_content.css('display') == 'none') {
                         Dom.font_content.show();
                         Dom.font_btn.addClass('current')
@@ -171,10 +204,10 @@
                         Dom.font_btn.removeClass('current')
                     }
                 })
-                $('#night_day').click(function() {
+                $('#night_day').click(function () {
                     //TODOc触发背景切换事件
                 })
-                $('#large-font').click(function() {
+                $('#large-font').click(function () {
                     if (initFontSize >= 20) {
                         return;
                     }
@@ -182,7 +215,7 @@
                     RootContainer.css('font-size', initFontSize);
                     Util.StorageSetter('font_size', initFontSize);
                 })
-                $('#small-font').click(function() {
+                $('#small-font').click(function () {
                     if (initFontSize <= 10) {
                         return;
                     }
@@ -190,7 +223,7 @@
                     RootContainer.css('font-size', initFontSize);
                     Util.StorageSetter('font_size', initFontSize);
                 })
-                Win.scroll(function() {
+                Win.scroll(function () {
                     Dom.bottom_nav.hide();
                     Dom.top_nav.hide();
                     Dom.font_content.hide();
